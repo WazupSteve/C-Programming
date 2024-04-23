@@ -13,7 +13,3 @@ Students are encouraged to utilize these notes while studying and coding in C fo
 ### Contribution
 
 Contributions to improve the notes or the code examples are welcome. Please submit a pull request or open an issue to suggest changes or additions.
-
-### License
-
-This project is released under the MIT License. See the LICENSE file for more details.

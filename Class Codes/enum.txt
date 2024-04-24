@@ -1,0 +1,24 @@
+enum: enumeration(to list) in c
+1*) An enumeration is a user defined data type that consists of a set of named values 
+    that represent integral constants, known as enumeration constants.
+
+NOTE: It is used to replace #define chains
+In short: a convienent name given to the integer constant--->enumerators using enumeration
+2*) syntax:
+enum <identifier>  //identifier name is optional
+{
+	enumerator1, enumerator 2,........,enumerator n
+};
+
+3*) In C, an enumeration constant is of type int. 
+
+4*) If a constant expression is used as an initializer, 
+    the value of the expression cannot exceed the range of int 
+    (that is, INT_MIN to INT_MAX as defined in the header limits.h). 
+    Otherwise, the condition is tolerated, a diagnostic message is issued, 
+    but the value of the enumeration constant is undefined.
+
+5*) If no explicit value is assigned to the first enumerator, then it takes the value 0
+
+6*) Each enumeration constant must be unique within the scope 
+    in which the enumeration is defined.

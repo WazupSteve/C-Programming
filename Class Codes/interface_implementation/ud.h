@@ -1,0 +1,1 @@
+int pal_check(int);

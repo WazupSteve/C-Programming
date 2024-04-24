@@ -1,0 +1,12 @@
+What are storage classes?
+Storage classes specify the scope and life-time of 
+a variable/function.
+1) scope of a variable:-global/local
+2) life time of a variable:-within function/throught the program
+3)List of storage classes
+	* Automatic variables (auto): can be only local, contains junk of not initialized to any value 
+	* External variables (extern): can be global variable or other variable outside main() function 
+	* Static variables(static):can be local or global. Default value is 0. 
+		life of static variable inside function will be throught the program  
+	* Register variables (register)
+	* Global Variables

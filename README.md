@@ -12,11 +12,18 @@ Students are encouraged to utilize these notes while studying and coding in C fo
 
 ## Reference Resources
 
-Students are encourages to use this github repository along with the PESU Notes uploaded on the pesuacademy website.
-They can also refere the reference Textbooks mentioned:
+Students are encouraged to use the following resources for their studies:
 
-1) C Programming: A Modern Approach - Book by K. N King
-2)The C Programming Language (Second Edition) - Brian W. Kernighan and Dennis Ritchie 
+- **GitHub Repository**: [Link to the GitHub repository](https://github.com/WazupSteve/C-Programming)
+
+- **PESU Notes**: Notes uploaded on the PESU Academy website
+
+### Reference Textbooks:
+
+1. **C Programming: A Modern Approach** by K. N. King
+
+2. **The C Programming Language (Second Edition)** by Brian W. Kernighan and Dennis Ritchie
+
 
 ## Contribution
 

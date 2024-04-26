@@ -92,8 +92,6 @@ In this output would be 16.
 2) strcpy() - Right to left assignment. This tries to copy one string to another . There are 2 string used in this - Source and Destination string.
 Syntax - ``strcpy( destination , source )``
 
-```
-Example:
 ```c
 char c[]="pes",b[11]="university";
 printf("length=%d",strlen(c));

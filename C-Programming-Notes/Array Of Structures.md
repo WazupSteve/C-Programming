@@ -183,5 +183,96 @@ int main(){
 Question 2:
 
 Program to swap first and last elements of the array of structures and display the array of structures using (i)array of structures and (ii)array of pointers
+```c
+#include <stdio.h>  
+#include <string.h>  
+  
+typedef struct sample {  
+    int a;  
+    float b;  
+} s;  
+  
+void disp1(s *s1, int n) {  
+    for (int i = 0; i < n; i++) {  
+        printf("%d %f\n", s1[i].a, s1[i].b);  
+    }  
+}  
+  
+void disp2(s **sp, int n) {  
+    for (int i = 0; i < n; i++) {  
+        printf("%d %f\n", sp[i]->a, sp[i]->b);  
+    }  
+}  
+  
+void swap(s **a, s **b) {  
+    s *temp = *a;  
+    *a = *b;  
+    *b = temp;  
+}  
+  
+int main() {  
+    s s1[] = {{2, 2.2}, {1, 1.1}, {7, 7.7}, {4, 4.4}, {3, 3.3}};  
+    s *sp[100];  
+    int n = sizeof(s1) / sizeof(*s1);  
+  
+    printf("before swap using array of structures\n");  
+    disp1(s1, n);  
+  
+    for (int i = 0; i < n; i++) {  
+        sp[i] = &s1[i];  
+    }  
+  
+    printf("before swap using array of pointers to structures\n");  
+    disp2(sp, n);  
+  
+    // swap(&s[0], &s[n-1]); // sp[0], sp[n-1]  
+    swap(&sp[0], &sp[n-1]); // 2000, 2004  
+  
+    printf("after swap using array of structures\n");  
+    disp1(s1, n); // no change in the original set  
+  
+    printf("after swap using array of pointers to structures\n");  
+    disp2(sp, n); // first and last structures are swapped.  
+  
+    return 0;  
+}
+```
 
+Questions to think about ( PESU notes )
 
+1) Swapping using array of pointers is only swapping the pointers and not the array of
+structures. Write the diagram for the swap code to understand better.
+Answer:
+### Diagram for the Swap Code Using Array of Pointers
+
+- Suppose we have an array `s1` containing several `struct sample` instances.
+- We also have an array `sp` which holds pointers to these instances.
+```less
+      s1[]:    | s1[0] | s1[1] | s1[2] | s1[3] | s1[4] |
+                |-------|-------|-------|-------|-------|
+                |  2,2.2 |  1,1.1 |  7,7.7 |  4,4.4 |  3,3.3 |
+
+      sp[]:    | sp[0] | sp[1] | sp[2] | sp[3] | sp[4] |
+                |-------|-------|-------|-------|-------|
+                | &s1[0] | &s1[1] | &s1[2] | &s1[3] | &s1[4] |
+
+```
+
+**After Swap (swap(&sp[0], &sp[4])):**
+
+- Only the pointers in `sp[0]` and `sp[4]` are swapped. The actual `s1` array remains unchanged.
+```less
+      s1[]:    | s1[0] | s1[1] | s1[2] | s1[3] | s1[4] |
+                |-------|-------|-------|-------|-------|
+                |  2,2.2 |  1,1.1 |  7,7.7 |  4,4.4 |  3,3.3 |
+
+      sp[]:    | sp[0] | sp[1] | sp[2] | sp[3] | sp[4] |
+                |-------|-------|-------|-------|-------|
+                | &s1[0] | &s1[1] | &s1[2] | &s1[3] | &s1[4] |
+
+```
+This diagram shows that the elements pointed to by `sp[0]` and `sp[4]` are effectively swapped by altering the pointers, not the actual data in `s1`.
+
+2) What is the significance of using Array of pointers to structures?
+Answer:
+To avoid member wise copy while swapping. If the structure has too many data members, this array of pointer makes sense.

@@ -142,3 +142,46 @@ Syntax - ``struct tagname *ptr``
 Two ways of accessing the members of the structure using pointers
 1) Using indirection `*` operator and (.) operator.
 2) Using arrow(-->) operator or membership operator.
+## Array of Pointers to Structures
+An array of pointers to structure is also a variable that contains the address of the structure variables.
+Steps for creating array of pointers for structures:
+Creation of array of structure variable
+``struct tagname array_variable[size];``
+Create an array of pointers with the size specified to hold the address of the structures in the array of the structure variables.
+``struct tagname *pointer_variable[size]``
+
+Coding example:
+
+Printing the array of structures using array of pointers to structures
+```c
+#include<stdio.h>  
+#include<string.h>  
+typedef struct sample  
+{  
+    int a;  
+    float b;  
+}s;  
+int main(){  
+    s s1[]={{2,2.2},{1,1.1},{7,7.7},{4,4.4},{3,3.3}};  
+    s *sp[1000];  
+    int n = sizeof(s1)/sizeof(*sp);  
+    printf("using array \n");  
+    for(int i=0;i<n;i++){  
+        printf("%d %f \n",s1[i].a,s1[i].b);  
+    }  
+    printf("using pointers \n");  
+    for(int i=0;i<n;i++){  
+        sp[i]=&s1[i];  
+    }  
+    for(int i=0;i<n;i++){  
+        printf("%d %f \n" ,sp[i]->a,sp[i]->b);  
+    }  
+    return 0;  
+}
+```
+
+Question 2:
+
+Program to swap first and last elements of the array of structures and display the array of structures using (i)array of structures and (ii)array of pointers
+
+

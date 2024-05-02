@@ -234,22 +234,63 @@ head-->link=NULL;
 2) **Doubly Linked List** - Linked in both directions.
 3) **Circular Linked List -** The last element of the list is linked to the first element of the list.
 
-For our syllabus - we have only insertion in the frontend and frontend deletion.
+For our syllabus - we have only Insertion in the frontend and Frontend deletion.
 Rest all topics are removed from the syllabus.
 
-```
-Important for ISA and ESA
-Imitate a linked list 
-Add , Insert and delete.
-```
-
-Operations that can be performed are :
+Operations that can be performed on a linked list are :
 1) Insertion
 2) Deletion
 3) Search - Linear and Binary Search
 4) Display
 5) Merge
 6) Concatenate
+
+### Programs to Understand Linked Lists
+
+`Node_creation.c`[Refere the code repository to check this file]
+Method 1:
+```c
+#include<stdio.h>
+#include<stdlib.h>
+
+typdef struct node
+{
+int info;
+struct node *link;
+}n;
+
+int main(){
+	n n1;
+	n1.info=10;
+	n1.link=&n1;
+	printf("a=%d\n",n1.info);
+	printf("link=%p",n1.link);
+	return 0;
+}
+```
+Method 2 : Using Dynamic memory function to create a Node
+```c
+#include<stdio.h>
+#include<stdlib.h>
+
+typdef struct node
+{
+int info;
+struct node *link;
+}n;
+
+int main(){
+n *head = malloc(sizeof(n));
+printf("enter the value for a \n");
+scanf("%d",&head-->info);
+printf("a=%d \n",head-->info);
+printf("node link is initialized to NULL \N");
+head --> link = NULL;
+printf("link =%p",head-->link);
+return 0;
+}
+```
+
 
 Create a structure called node , linking pointer as link , make a Single Linked List 
 My code:
@@ -429,6 +470,8 @@ return 0;
 }
 ```
 
+Using Switch Cases:
+
 ```c
 #include <stdio.h>
 #include <stdlib.h>
@@ -530,10 +573,10 @@ n* delete_ll(n* head) {
     printf("Linked list deleted\n");
     return NULL; // Return NULL as there's no head for an empty list
 }
-
 ```
 
 # Union :
+
 Union is a data structure.
 ```c
 union sample

@@ -11,8 +11,8 @@ int main()
 {   int n;
     printf("enter the size:");
     scanf("%d",&n);
-   b bs[3];
-   for(int i=0;i<n;i++){
+    b bs[3];
+    for(int i=0;i<n;i++){
     printf("Enter the book[%d] details:\n",i+1);
     printf("Enter Book id:");
     scanf("%d",&bs[i].bid);

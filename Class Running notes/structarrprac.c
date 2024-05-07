@@ -72,6 +72,15 @@ void update(int sbid,float per, b *bsp){
     bsp[sbid-1].price=np;
 
 }
+void display(int n,b *bsp)
+{
+    for(int i=0;i<n;i++){
+        printf("The book no %d:\n",i+1);
+        printf("BID:%d",bsp[i].bid);
+        printf("Author Name:%s",bsp[i].auth_n);
+        printf("Price:%f",bsp[i].price);
+    }
+}
 int main()
 {
     int n;
@@ -84,4 +93,6 @@ int main()
     float per;
     printf("Enter the percentage change in the price:");
     scanf("%f",&per);
+    update(sbid,per,bs);
+
 }

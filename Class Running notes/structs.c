@@ -143,6 +143,7 @@ int main(){
 */
 
 //M-II
+/*
 #include<stdio.h>
 struct student{
     int roll;
@@ -167,9 +168,10 @@ void read(struct student *p)
 int main(){
     struct student s1;
     struct student *p1=&s1;
-    read(&s1);
+    read(&s1); //Here this read(p1) is also valid!
     printf("---------------------------\n");
     printf("Roll_No:%d\n",s1.roll);
     printf("Name:%s\n",s1.name);
     printf("Marks:%f\n",s1.marks);
 }
+*/

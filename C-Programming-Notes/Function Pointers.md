@@ -75,3 +75,29 @@ int main() {
 `printf("%p",&fp)` gives the address of the function pointer.
 `sizeof()` gives the size of the function pointer.
 
+## Callback 
+
+Callback is a user defined function( executable code ) that is passed as an argument to another user defined function (executable code)
+Usually the function is invoked inside the outer function to complete a routine execution or action
+Example : SQL queries , Google Maps
+
+EXAMPLE:
+```c
+int add(int a, int b) {
+    return a+b;
+}
+int mul(int x, int y,int z)
+{
+	return x*y*z;
+}
+int calc(int(*fnp)(int , int ,int),int x,int y,int z)
+{
+	return fnp(x,y,z);
+}
+int main(){
+	printf("entered inside the main function \n");
+	printf("sum = %d",calc(add,1,2,1));
+	printf("sum = %d",calc(mul,1,2,1));
+	return 0;
+}
+```

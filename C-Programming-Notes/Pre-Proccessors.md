@@ -413,3 +413,115 @@ The code demonstrates the use of preprocessor directives `#ifdef`, `#undef`, and
 We can also have a empty else block in C programming
 We cannot leave the if block empty.
 
+## Pragma
+`pragma warn` 
+`#pragma warn -rvl` // hide return value warning
+`#pragma warn -par` //hide parameter never used warning
+
+```c
+#include<stdio.h>  
+#pragma warn -rvl // hide return value warning  
+#pragma warn -par //hide parameter never used warning  
+//#pragma warn -rch //hide unreachable code warning  
+  
+int f1()    //-rvl : to hide the warning of not returning any value  
+{  
+    printf("not returning any value\n");  
+    //return;  
+}  
+  
+int f2()    //-par: to hide the warning of not accepting the parameter passed  
+{  
+    printf("not reciving the passed parameter in function f2\n");  
+    return 5;  
+}  
+  
+int f3()    //-rch : to hide the warning of not reachable codes  
+{  
+    printf("\nentered inside function f3\n");  
+    return 2;  
+    printf("trying to reach this statement after return statement\n");  
+}  
+  
+int main()  
+{  
+    printf("return value of function f1=%d\n",f1());  
+    printf("f2 not designed to accept parameter=%d",f2(3));  
+    printf("tyring to fetch non reachable code of f3=%d",f3());  
+    return 0;  
+}
+```
+Be careful with printing the order of the results
+
+### The explanation for the above program is explained below:
+
+This code demonstrates how to suppress specific compiler warnings in C using `#pragma` directives. The warnings being suppressed are related to return values, unused parameters, and unreachable code.
+
+Here's a breakdown of the code and what each part does:
+
+1. **Suppressing Warnings with `#pragma` Directives**:
+   - `#pragma warn -rvl`: Suppresses the warning for functions that do not return a value when they should.
+   - `#pragma warn -par`: Suppresses the warning for functions that have unused parameters.
+   - `//#pragma warn -rch`: This line is commented out, so it does not have any effect. If uncommented, it would suppress warnings about unreachable code.
+
+2. **Function Definitions**:
+   - `int f1()`: This function should return an integer but does not. It prints a message and exits without a return statement.
+   - `int f2()`: This function does not use any parameters, but it should. It prints a message and returns 5.
+   - `int f3()`: This function has a return statement followed by another statement, making the latter unreachable. It prints a message, returns 2, and has another `printf` that will never be executed.
+
+3. **Main Function**:
+   - `int main()`: This is the entry point of the program. It calls the above functions and prints their results.
+   - `printf("return value of function f1=%d\n",f1());`: Calls `f1()` and attempts to print its return value, which will cause a runtime error since `f1` doesn't return anything.
+   - `printf("f2 not designed to accept parameter=%d",f2(3));`: Calls `f2()` with an argument, even though `f2()` is not designed to accept any parameters.
+   - `printf("trying to fetch non reachable code of f3=%d",f3());`: Calls `f3()` and prints its return value, even though part of its code is unreachable.
+
+### Detailed Explanation of Each Function:
+
+1. **Function `f1`**:
+   ```c
+   int f1() {
+       printf("not returning any value\n");
+       //return;
+   }
+   ```
+   - This function prints a message and exits without returning a value, which is generally incorrect for a function declared to return an `int`.
+
+2. **Function `f2`**:
+   ```c
+   int f2() {
+       printf("not reciving the passed parameter in function f2\n");
+       return 5;
+   }
+   ```
+   - This function prints a message about not using any parameters and returns the integer 5. The call in `main` tries to pass a parameter, which `f2` ignores.
+
+3. **Function `f3`**:
+   ```c
+   int f3() {
+       printf("\nentered inside function f3\n");
+       return 2;
+       printf("trying to reach this statement after return statement\n");
+   }
+   ```
+   - This function prints a message, returns the integer 2, and has an unreachable `printf` statement after the return.
+
+4. **Main Function**:
+   ```c
+   int main() {
+       printf("return value of function f1=%d\n",f1());
+       printf("f2 not designed to accept parameter=%d",f2(3));
+       printf("tyring to fetch non reachable code of f3=%d",f3());
+       return 0;
+   }
+   ```
+   - Calls `f1()`, which will not return a value, leading to undefined behavior when trying to print its return value.
+   - Calls `f2(3)`, which ignores the parameter and prints the return value 5.
+   - Calls `f3()`, prints its return value 2, but the unreachable `printf` inside `f3` does not execute.
+
+### Summary:
+This code demonstrates how to suppress specific compiler warnings using `#pragma` directives but is not good practice for writing clean, correct C code. Each function has intentional issues:
+- `f1` does not return a value.
+- `f2` ignores parameters.
+- `f3` contains unreachable code.
+
+The main function illustrates the consequences of these issues.

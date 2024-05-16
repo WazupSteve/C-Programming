@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<errno.h>
+#include<string.h>
 /* The ferror() function tests the error indicator for a 
 specified stream and returns nonzero if and only if 
 the error indicator is set for the stream.*/
@@ -12,7 +13,9 @@ int main()
 	printf("%d\n",ferror(fp));
   	if (ferror(fp))
   	{
-		printf("error no is %d\t",errno); perror("error_message");
+		printf("error no is %d\t",errno); 
+		printf("Message from errno:%s\n",strerror(errno));
+		perror("error_message");
      	printf("write error\n");
   	}
 	return 0;

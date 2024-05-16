@@ -1,0 +1,34 @@
+pre-processor directives: Line of code executed by the C pre-processor.
+* It is also called as the text substitution tool
+* It instructs the C compiler to do the necessary pre-processing activity before the
+	actual compilation.
+* All the pre-processor commands begin with # symbol
+TYPES OF PRE-PROCESSOR DIRECTIVES
+1) Macros: It replaces tokens in the current file with specified replacement tokens
+2) File Inclusion : It imbeds file within the current file
+	a)#include directive :inserts text from another source file. Eg: #include<stdio.h>
+	//NOT IN SYLLABUS b)#include_next directive :causes the compiler to omit the directory 
+				   of the including file from the search path 
+				   when searching for include files (not for your syllabus)
+3) Condtional compilation: It conditionally compiles sections of the current file
+	a)#ifdef
+	b)#ifndef
+	c)#if
+	d)#else
+	e)#elif
+	f)#else
+	g)#endif
+//OUT OF SYLLABUS 4) Message generation directives: It controls the generation of diagnostic messages
+	a)#error directive :defines text for a compile-time error message
+	b)#line directive : supplies a line number for compiler messages
+//OUT OF SYLLABUS 5) NULL directive (#) : it performs no action
+6) Pragma directive : applies compiler-specific rules to specified sections of code
+
+
+
+*****************************************************************************************
+Difference between macros and enums
+1) macros do not have type, whereas enum is of type int
+2) macros are substituted at pre-processing stage, whereas enums are not
+3) macros can be redefined, whereas enums cannot be redefined within the same scope
+4) assignment operator results in an error when used on macros

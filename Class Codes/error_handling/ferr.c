@@ -13,7 +13,7 @@ int main(void)
   	FILE *fp=fopen("check1.txt","w");
   	char *str = "welcome to c";
   	fprintf(fp, "%s\n", str);// doesnt throw error on just giving % and not the format specifier
-	//printf("%d",ferror(fp));
+	printf("%d",ferror(fp));
   	if (ferror(fp))
   	{
      		printf("write error\n");
@@ -26,12 +26,13 @@ int main(void)
 	return 0;
 }
 */
+
 int main(void)
 {
-  	FILE *fp=fopen("check1.txt","w");
+  	FILE *fp=fopen("check1.txt","r");
   	char *str = "welcome to c";
   	fprintf(fp, "%s\n", str);// doesnt throw error on just giving % and not the format specifier
-	printf("%d",ferror(fp));
+	printf("%d\n",ferror(fp));
   	if (ferror(fp))
   	{
      		printf("write error\n");
@@ -39,9 +40,31 @@ int main(void)
 			printf("%d\n",ferror(fp));
   	}
 	printf("no errors enountered\n");
-	//fclose(fp)
+	fclose(fp);
   	if (fclose(fp))
 		perror("fclose error");
 	
 	return 0;
 }
+
+/*
+int main(void)
+{
+  	FILE *fp=fopen("check1.txt","r");
+  	char *str = "welcome to c";
+  	fprintf(fp, "%s\n", str);// doesnt throw error on just giving % and not the format specifier
+	printf("%d\n",ferror(fp));
+  	if (ferror(fp))
+  	{
+     		printf("write error\n");
+     		clearerr(fp); //clearerr is not in the syllabus! Still Let's explore
+			printf("%d\n",ferror(fp));
+  	}
+	printf("no errors enountered\n");
+	//fclose(fp);
+  	if (fclose(fp))
+		perror("fclose error");
+	
+	return 0;
+}
+*/

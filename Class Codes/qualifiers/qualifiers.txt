@@ -1,0 +1,6 @@
+what are qualifiers in C?
+qualifiers are the keywords when applied to data_types results in a qualified data_types
+Qualifier groups/classes:
+1) size qualifiers: short, long (alters only primitive datatypes?)
+2) sign qualifiers: signed(default),unsigned 
+3) type qualifiers:const, volatile

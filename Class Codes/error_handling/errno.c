@@ -6,8 +6,8 @@ int main()
 	FILE *fp=fopen("file.txt","r");
 	//printf("error no is %d and the error message is %s\n",errno,strerror(errno));
 	//printf("error no is %d\n",errno);
-	//perror("MY MESSAGE");
-	//perror(""); //This works but this doesn't work perror();
+	perror("MY MESSAGE");
+	perror(""); //This works but this doesn't work perror();
 	
 	//Not in syllabus for curiosity
 	/*

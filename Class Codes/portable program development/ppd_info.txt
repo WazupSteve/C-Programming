@@ -1,0 +1,3 @@
+Portable program development:
+"C" is a portable programming language that is independent of 
+hardware and software specifications/limitations.

@@ -35,7 +35,10 @@ High level data files are of 2 types
 1) Text - Formatted(fscanf and fprintf ) and Unformatted( fgetc , fputc , fgets , fputs)
 2) Binary - formatted and unformatted(fread and fwrite)
 
-`fgetc()` and `getc() `cannot be used as macros.
+Special Character `/0` is used to indicate termination and has the ASCII value of 26.
+This marks the EOF.
+
+The difference is `fgetc()` and `fputc()` are the functions while `getc()` and` putc()` are macros
 
 We need a structure pointing to the file 
 We can use `fopen()` to point to the file.
@@ -134,6 +137,7 @@ NOTE:
 ## Method  2
 
 This is done using the` getc()` and` putc()` method
+
 ```c
 #include<stdio.h>
 //to read from one file and write into another file using getc & putc functions
@@ -177,4 +181,162 @@ while(ch!=EOF)
 */
 ```
 
-Check the files sent in class and add those codes here and update the files
+If we assign a constant to any variable , then we cannot modify it.
+On failure it gives -1 (END OF FILE)
+On success it gives a non negative number (0)
+
+```c
+#include<stdio.h>
+/* char* fgets(char *char_array, int n, FILE *stream);
+	success:returns Pointer to the string buffer
+	failure: NULL on EOF or Error.
+   int fputs(const char *s, FILE *stream);
+	success:A non-negative number (we usually see 0)
+	failure: EOF(-1) on error.\
+
+NOTE: gets(char[]), puts(char[]) cannot be used for file operations (read/write from file)
+*/
+int main()
+{
+	FILE *rp=fopen("check.txt","r");
+	FILE *wp=fopen("output.txt","w");
+	if(rp==NULL)
+		printf("unsuccessfull file operation!!\n");
+	else
+	{
+		printf("successfull file operation!! file starting address= %p\n",rp);	
+		char buff[20];// char *buff; and char *buff[20] throws error
+		printf("fgets=%p\n",fgets(buff,14,rp));
+		printf("fputs=%d\n",fputs(buff,wp));
+		fclose(rp);fclose(wp);
+	}
+	return 0;
+}
+
+/* // other approach2- to directly store a string in a file
+fputs("welcome to file handling function",wp);
+*/
+```
+
+//understand this code and do the modifications to the above code to copy the complete contents of one code and get the output in other by using fgets and fputs
+
+### fseek()
+If we open a file in r+( read and write mode ). This read and write pointer is the first parameter for `fseek()`.
+The second parameter is a long offset (displacement).
+Another parameter is  a`int` where (pointer position)
+1) SEEK_SET = 0    ---> The file pointer gets placed at the beginning of the file.
+2) SEEK_CUR = 1   ---> Gives the current Position
+3) SEEK_END = 2   ---> Points to the end of the file
+
+Displacement: +ve or -ve number of bytes to skip forward or backward
+	on success:returns 0
+	on failure:returns non-zero value
+### ftell()  : `[File *Pointer]`
+
+Success : 0 or positive integer (ie the count of character pointer position of the pointer)
+Failure : -1 on error
+### rewind()
+
+It has only one parameter (ie the file pointer). It rewinds the pointer to the beginning of the file.
+The users can chose the mode of the operation when the pointer rewinds to the beginning of the file. Hence this is one of the advantages of using the rewind() function over the fseek() operation.
+
+It has No return value
+
+```c
+#include<stdio.h>
+/* fseek( FILE* pointer, long offset (displacement, int whence (pointer position)
+	pointer position: SEEK_SET   0   beginning of the file
+			  SEEK_CUR   1   current position in the file
+ 			  SEEK_END   2   end of the file
+	displacement: +ve or -ve number of bytes to skip forward or backward
+	on success:returns 0
+	on failure:returns non-zero value
+   ftell(FILE *pointer)
+	success:0 or positive integer  (i.e count of character position the pointer is away from the beginning of the file)
+	failure: -1 on error
+   rewind(FILE *pointer): rewinds the pointer to the beginning of the file
+	no-return value.
+*/
+int main()
+{
+	FILE *rwp=fopen("check.txt","r+");
+	if(rwp==NULL)
+		printf("unsuccessfull!!\n");
+	else
+	{
+		printf("success!!\n");
+		char ch;
+		ch=getc(rwp);
+		ch=getc(rwp);
+		ch=getc(rwp);
+		printf("fseek=%d\n",fseek(rwp,5,SEEK_SET));
+		printf("ftell=%d\n",ftell(rwp));
+		ch=getc(rwp);printf("%c\n",ch);
+		rewind(rwp);//don't use printf for this, gives error saying invalid use for void expression
+		printf("ftell=%d",ftell(rwp));
+	}
+	return 0;
+}
+```
+
+Since we used getc three times , the file pointer moves 3 characters in the file. Then the pointer points to the start of the file after we use the `SEEK_SET() `function. Then we use `fseek()` to displace by 5 positions. `fseek` = 0  and` ftell()` = 5.
+We can 
+If we give -ve integers , `fseek() `= -1 (error) and `ftell()` = points to the end of the file.
+The` SEEK_END` can be variable as the `/0 `is filled in the file after the contents of the file is completed. So this causes random choosing of the index.
+
+//explore about the rewind for read mode or r+ mode and add the basic theory for extra information. Don't open in w+ mode , But we can use a+ mode for this.
+
+```
+Create a file called data.txt. Inside this give all the integers like 23,12,15..
+Read the contents in the data.txt and perform linear search and binary search.
+Check whether the key element is found in the data.txt or not.
+```
+Answer:
+```c
+
+```
+
+# Error Handling 
+
+### Error Number 
+``Errno``
+1) Global Variable
+2) Available in `<errno.h>`
+
+Example:
+```c
+FILE *rp = fopen("check.txt","r");
+fputs("cprogram",rp);
+printf("error = %d",errno);
+printf("error message = %s",strerror(errno));
+```
+
+## Strerror()
+
+Available in `<string.h>` 
+Its inputs parameter is a error number (`errno)`
+
+## Perror
+
+This dosent take any input
+Here when we use` perror` and `strerror` then` perror` gives the same error sentence along with the user defined message.
+
+There are 42 Error Messages in `<errno.h>`
+
+## feof()
+
+File end of error.
+Tells if the pointer is pointing to the end of the file.
+
+## strtok( str , delimeter)
+
+str = array of characters(strings)
+Has return type of character pointer.
+
+```c
+char *tok strtok(str," , ");
+FIRST CALL
+
+char *tok = strtok(NULL , " , " );
+2nd Call 
+```

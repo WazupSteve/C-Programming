@@ -206,4 +206,192 @@ int main() {
 }
 ```
 
+## General Pattern
+
+Binary search
+```c
+int binarySearch(Book books[], int n, int ISBN) {
+    int left = 0, right = n - 1;
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (books[mid].ISBN == ISBN) {
+            return mid;
+        }
+        if (books[mid].ISBN < ISBN) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+    return -1;  // ISBN not found
+}
+```
+
+Bubble sort
+```c
+void bubbleSort(Book books[], int n) {
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (books[j].ISBN > books[j + 1].ISBN) {
+                Book temp = books[j];
+                books[j] = books[j + 1];
+                books[j + 1] = temp;
+            }
+        }
+    }
+}
+```
+
+# Linked List
+
+
+
+
+
+## String 
+
+```c
+#include <stdio.h>  
+#include <stdlib.h>  
+#include <string.h>  
+  
+int pos;  
+int len;  
+char string[500];  
+void substring(char string[],int len , int pos);  
+  
+int main(){  
+    int stringlength;  
+    printf("enter the position");  
+    scanf("%d",&pos);  
+    printf("enter the length");  
+    scanf("%d",&len);  
+    printf("enter the string");  
+    scanf("%s",string);  
+    substring(string,len,pos);  
+    return 0;  
+}  
+  
+void substring(char string[],int len , int pos){  
+    char result[500];  
+    for(int i = pos ; i < len + pos ; i++){  
+        result[i]=string[i];  
+        printf("%s",&result[i]);  
+    }  
+}
+```
+
+
+## BALANCED PARANTHESIS
+
+```c
+#include<stdio.h>  
+#include<string.h>  
+void rightshift(char string[],int n);  
+  
+int main(){  
+    char string[500];  
+    int n;  
+    printf("enter the value of the string");  
+    scanf("%d",&n);  
+    printf("enter the string");  
+    scanf("%s",string);  
+    rightshift(string,n);  
+    return 0;  
+}  
+  
+void rightshift(char string[], int n) {  
+    int length = strlen(string);  
+    n = n % length; // To handle cases where n is larger than the length of the string  
+  
+    for (int j = 0; j < n; j++) {  
+        char last = string[length - 1]; // Store the last character  
+        for (int i = length - 1; i > 0; i--) {  
+            string[i] = string[i - 1]; // Shift characters to the right  
+        }  
+        string[0] = last; // Place the last character at the start  
+    }  
+    printf("%s",string);  
+}
+```
+
+CYPHER
+```c
+#include <stdio.h>  
+  
+void encrypt(char message[], int key);  
+  
+int main() {  
+    char message[500];  
+    int key;  
+  
+    // Read the message from the user  
+    printf("Enter the message: ");  
+    scanf("%s", message);  
+  
+    // Read the key from the user  
+    printf("Enter the key: ");  
+    scanf("%d", &key);  
+  
+    // Encrypt the message using the ROT Cipher technique  
+    encrypt(message, key);  
+  
+    // Print the encrypted message  
+    printf("Encrypted message: %s\n", message);  
+  
+    return 0;  
+}  
+  
+void encrypt(char message[], int key) {  
+    // Adjust the key to be within the range of 0-25  
+    key = key % 26;  
+  
+    for (int i = 0; message[i] != '\0'; i++) {  
+        char c = message[i];  
+  
+        // Encrypt lowercase letters  
+        if (c >= 'a' && c <= 'z') {  
+            c = c + key;  
+            if (c > 'z') {  
+                c = c - 26;  
+            }  
+        }  
+            // Encrypt uppercase letters  
+        else if (c >= 'A' && c <= 'Z') {  
+            c = c + key;  
+            if (c > 'Z') {  
+                c = c - 26;  
+            }  
+        }  
+  
+        // Update the character in the message  
+        message[i] = c;  
+    }  
+}
+```
+
+```c
+#include <stdio.h>  
+int main() {  
+    char str[100];  
+    scanf("%[^\n]s", str);  
+    int i = 0;  
+    int x = 1;  
+    while (str[i] != '\0') {  
+        if (str[i] == ' ') {  
+            x = 1; // Next character will be the start of a word  
+        }  
+        else if (x && str[i] >= 'a' && str[i] <= 'z') {  
+            str[i] = str[i] - 32;  
+            x = 0; // Turn off start_of_word flag after converting  
+        }  
+        else {  
+            x = 0; // Any other character marks end of start of word  
+        }  
+        i++;  
+    }  
+    printf("%s", str);  
+    return 0;  
+}
+```
 

@@ -242,13 +242,7 @@ void bubbleSort(Book books[], int n) {
 }
 ```
 
-# Linked List
-
-
-
-
-
-## String 
+# Strings 
 
 ```c
 #include <stdio.h>  
@@ -282,7 +276,9 @@ void substring(char string[],int len , int pos){
 ```
 
 
-## BALANCED PARANTHESIS
+## Balanced Parathesis
+(check the manual pls )
+
 
 ```c
 #include<stdio.h>  
@@ -315,7 +311,8 @@ void rightshift(char string[], int n) {
 }
 ```
 
-CYPHER
+## Cypher ( important )
+
 ```c
 #include <stdio.h>  
   
@@ -395,3 +392,421 @@ int main() {
 }
 ```
 
+## Reversal String ( IMPORTANT)
+
+```c
+#include <stdio.h>
+#include <string.h>
+
+// Function to reverse a string in place
+void reverseString(char *str) {
+    int length = strlen(str);
+    for (int i = 0; i < length / 2; i++) {
+        char temp = str[i];
+        str[i] = str[length - i - 1];
+        str[length - i - 1] = temp;
+    }
+}
+
+int main() {
+    char string1[101], string2[101];
+
+    // Read the first string, including spaces
+    printf("Enter the first string: ");
+    scanf("%[^\n]%*c", string1);
+
+    // Read the second string, including spaces
+    printf("Enter the second string: ");
+    scanf("%[^\n]%*c", string2);
+
+    // Reverse the first string
+    reverseString(string1);
+
+    // Compare the reversed string1 with string2
+    if (strcmp(string1, string2) == 0) {
+        printf("True\n");
+    } else {
+        printf("False\n");
+    }
+
+    return 0;
+}
+```
+
+
+## ommit vowels
+
+
+```c
+#include <stdio.h>
+#include <ctype.h>
+
+// Function to check if a character is a vowel
+int isVowel(char ch) {
+    ch = tolower(ch);
+    return (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u');
+}
+
+// Function to remove vowels from a string
+void removeVowels(char *text) {
+    char *readPtr = text;
+    char *writePtr = text;
+    while (*readPtr) {
+        if (!isVowel(*readPtr)) {
+            *writePtr = *readPtr;
+            writePtr++;
+        }
+        readPtr++;
+    }
+    *writePtr = '\0'; // Null-terminate the modified string
+}
+
+int main() {
+    char inputText[100];
+    printf("Enter the text: ");
+    scanf("%[^\n]", inputText);
+    removeVowels(inputText);
+    printf("Text without vowels: %s\n", inputText);
+    return 0;
+}
+
+```
+
+## substring question
+
+```c
+#include <stdio.h>
+#include <string.h>
+
+// Function to find all occurrences of a substring in a string
+void findSubstring(char *string, char *substring) {
+    int len1 = strlen(string);
+    int len2 = strlen(substring);
+    int found = 0;
+
+    for (int i = 0; i <= len1 - len2; i++) {
+        int j;
+        for (j = 0; j < len2; j++) {
+            if (string[i + j] != substring[j])
+                break;
+        }
+        if (j == len2) {
+            printf("Substring found at index %d\n", i);
+            found = 1;
+        }
+    }
+
+    if (!found) {
+        printf("Substring not found.\n");
+    }
+}
+
+int main() {
+    char string[100], substring[100];
+    printf("Enter the main string: ");
+    scanf(" %[^\n]s", string); // Read the string with spaces
+    printf("Enter the substring: ");
+    scanf(" %[^\n]s", substring); // Read the substring with spaces
+    findSubstring(string, substring);
+    return 0;
+}
+
+```
+
+## upper to lower and lower to uppercase
+
+```c
+#include <stdio.h>
+#include <ctype.h>
+
+int main() {
+    char str[100]; // Declare a character array to store the string
+    int i; // Declare variable for iteration
+
+    // Read a string from the standard input
+    printf("Enter a sentence: ");
+    scanf("%[^\n]", str);
+
+    // Loop through each character of the string
+    for (i = 0; str[i] != '\0'; i++) {
+        // Check if the character is lowercase and convert to uppercase
+        if (islower(str[i])) {
+            str[i] = toupper(str[i]);
+        }
+        // Check if the character is uppercase and convert to lowercase
+        else if (isupper(str[i])) {
+            str[i] = tolower(str[i]);
+        }
+    }
+
+    // Output the modified string
+    printf("Modified sentence: %s\n", str);
+    return 0;
+}
+
+```
+
+
+# Linked List 
+
+## Question 1
+Write a program in C to create a Singly Linked List with `n` number of nodes. Perform the following operations in the same order:
+
+1. Read the value of `n` from the user.
+2. Insert `n` number of nodes – insert nodes at the end of the linked list (Implement using a function `insertLast()`).
+3. Display all the nodes after the insertion of nodes (Implement using a function `display()`).
+4. Delete the last node (Implement using a function `deleteLast()`).
+5. Display all the nodes after the deletion of the node (Use the function `display()`).
+6. Free the list (Implement using a function `freeList()`).
+	``
+### Solution:
+```c
+#include<stdio.h>
+#include<stdlib.h>
+
+typedef struct node {
+    int info;
+    struct node *next;
+} NODE;
+
+NODE* insertLast(NODE* head, int ele);
+void display(NODE *head);
+NODE* deleteLast(NODE* head);
+NODE* freeList(NODE* head);
+
+int main() {
+    NODE* head = NULL;
+    int ele;
+    int n;
+    
+    scanf("%d", &n);
+    for(int i = 0; i < n; i++) {
+        scanf("%d", &ele);
+        head = insertLast(head, ele);
+    }
+    
+    display(head);
+    head = deleteLast(head);
+    display(head); 
+    head = freeList(head);
+}
+
+NODE* createNode(int ele) {
+    NODE* newNode = malloc(sizeof(struct node));
+    // Assume memory is always allocated to the new node and
+    // hence not checking for newNode == NULL
+    newNode->info = ele;
+    newNode->next = NULL;
+    return newNode;
+}
+
+NODE* insertLast(NODE* head, int ele) {
+    NODE* temp; 
+    NODE* newNode = createNode(ele);
+    
+    if(head == NULL) {
+        head = newNode;
+    } else {
+        temp = head;
+        while(temp->next != NULL) {
+            temp = temp->next;
+        }
+        temp->next = newNode;
+    }
+    return head;
+}
+
+void display(NODE *head) {
+    if(head == NULL) {
+        printf("List is empty\n");
+    } else {
+        NODE *p = head;
+        printf("Elements are:\n");
+        while(p != NULL) {
+            printf("%d\n", p->info);
+            p = p->next;
+        }
+    }
+}
+
+NODE* deleteLast(NODE* head) {
+    if(head == NULL) {
+        printf("List is empty\n");
+    } else {
+        NODE* p; // To be deleted (Last)
+        NODE* q; // Referring to Last but one
+        
+        p = q = head;
+        while(p->next != NULL) {
+            q = p;
+            p = p->next;
+        }
+        q->next = NULL;
+        printf("Deleted element is %d\n", p->info);
+        free(p);
+    }
+    return head;
+}
+
+NODE* freeList(NODE* head) {
+    NODE *p = head;
+    while(head != NULL) {
+        head = head->next;
+        // printf("Freeing %d\n", p->info);
+        free(p);
+        p = head;
+    }
+    return head;
+}
+```
+
+## Question 2
+Write a program in C to create a Singly Linked List with `n` number of nodes. Perform the following operations in the same order:
+
+1. Read the value of `n` from the user.
+2. Insert `n` number of nodes – insert nodes at the front of the linked list (Implement using a function `insertFront()`).
+3. Display all the nodes after the insertion of nodes (Implement using a function `display()`).
+4. Delete the first node (Implement using a function `deleteFront()`).
+5. Display all the nodes after the deletion of the node (Use the function `display()`).
+6. Free the list (Implement using a function `freeList()`).
+
+### Solution:
+```c
+#include<stdio.h>
+#include<stdlib.h>
+
+typedef struct node {
+    int info;
+    struct node *next;
+} NODE;
+
+NODE* insertFront(NODE* head, int ele);
+void display(NODE *head);
+NODE* deleteFront(NODE* head);
+NODE* freeList(NODE* head);
+
+int main() {
+    NODE* head = NULL;
+    int ele;
+    int n;
+    
+    scanf("%d", &n);
+    for(int i = 0; i < n; i++) {
+        scanf("%d", &ele);
+        head = insertFront(head, ele);
+    }
+    
+    display(head);
+    head = deleteFront(head);
+    display(head); 
+    head = freeList(head);
+}
+
+NODE* createNode(int ele) {
+    NODE* newNode = malloc(sizeof(struct node));
+    // Assume memory is always allocated to the new node and
+    // hence not checking for newNode == NULL
+    newNode->info = ele;
+    newNode->next = NULL;
+    return newNode;
+}
+
+NODE* insertFront(NODE* head, int ele) {
+    NODE* newNode = createNode(ele);
+    newNode->next = head;
+    head = newNode; 
+    return head;
+}
+
+void display(NODE *head) {
+    if(head == NULL) {
+        printf("List is empty\n");
+    } else {
+        NODE *p = head;
+        printf("Elements are:\n");
+        while(p != NULL) {
+            printf("%d\n", p->info);
+            p = p->next;
+        }
+    }
+}
+
+NODE* deleteFront(NODE* head) { 
+    if(head == NULL) {
+        printf("List is empty\n");
+    } else { 
+        NODE* p = head;
+        printf("Deleted element is %d\n", p->info);
+        head = p->next;
+        free(p);
+    }
+    return head;
+}
+
+NODE* freeList(NODE* head) {
+    NODE *p = head;
+    while(head != NULL) {
+        head = head->next;
+        // printf("Freeing %d\n", p->info);
+        free(p);
+        p = head;
+    }
+    return head;
+}
+```
+
+
+## EASY LINKED LIST
+```C
+#include <stdio.h>  
+#include <string.h>  
+#include <stdlib.h>  
+  
+typedef struct node {  
+    int a;  
+    struct node *ptr;  
+} n;  
+  
+n* insert(n *head) {  
+    n *new = malloc(sizeof(n));  
+    printf("please enter the number");  
+    scanf("%d", &new->a);  
+    new->ptr = NULL;  
+    if (head == NULL) {  
+        head = new;  
+    } else {  
+        new->ptr = head;  
+        head = new;  
+    }  
+    return head;  
+}  
+  
+n* delete(n *head) {  
+    if (head != NULL) {  
+        printf("deleted element %d", head->a);  
+        head = head->ptr;  
+    }  
+    return head;  
+}  
+  
+void display(n *head) {  
+    n *p = head;  
+    while (p != NULL) {  
+        printf("%d\t", p->a);  
+        p = p->ptr;  
+    }  
+}  
+  
+int main() {  
+    n *head = NULL;  
+    int k;  
+    scanf("%d", &k);  
+    for (int i = 0; i < k; i++) {  
+        head = insert(head);  
+    }  
+    display(head);  
+    head = delete(head);  
+    display(head);  
+    return 0;  
+}
+```
